@@ -1,10 +1,15 @@
-import { useState } from 'react';
-const Buscador = () => {
-   const [buscandoTermino, setbuscandoTermino] = useState('');
+import { useState, useContext } from 'react';
+import { TicketContext } from '../context/ticketContext';
+const Buscador = ({ onSearch }) => {
+   const { buscandoTermino, setbuscandoTermino } = useContext(TicketContext);
+
+   const handleInputChange = (e) => {
+      setbuscandoTermino(e.target.value);
+   };
 
    const handleSearch = (e) => {
       e.preventDefault();
-      onSearch();
+      onSearch(buscandoTermino);
    };
 
    return (
@@ -15,12 +20,14 @@ const Buscador = () => {
          <form action="" onSubmit={handleSearch}>
             <input
                type="text"
-               name="name"
                value={buscandoTermino}
                onChange={(e) => setbuscandoTermino(e.target.value)}
                placeholder="Buscar ticket..."
             />
-            <button style={{ backgroundColor: '#2f4f4f', color: 'white' }}>
+            <button
+               // type="submit"
+               className="bg-teal-500 hover:bg-teal-700 text-black py-2 px-4 rounded"
+            >
                Buscar
             </button>
          </form>
