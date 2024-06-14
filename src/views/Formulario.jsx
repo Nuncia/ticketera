@@ -23,7 +23,7 @@ const Formulario = () => {
          tipo,
          fechaHora: fecha.toLocaleDateString(),
          prioridad,
-         estado,
+         estado: 'abierto',
       };
       actualizaListado(ticket);
       resetForm();

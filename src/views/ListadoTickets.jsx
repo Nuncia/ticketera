@@ -2,14 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import {
    getCoreRowModel,
    useReactTable,
-   createColumnHelper,
    flexRender,
 } from '@tanstack/react-table';
 import { TicketContext } from '../context/ticketContext';
 import Buscador from '../components/Buscador';
 import UseColumns from '../hooks/useColumns';
 import UseRows from '../hooks/UseRows';
-import { useRouteError } from 'react-router-dom';
 
 const ListadoTickets = () => {
    const { listadoTicket, setListadoTicket, buscandoTermino } =
@@ -17,23 +15,41 @@ const ListadoTickets = () => {
    const [cargando, setCargando] = useState(true);
    const [filteredTicket, setFilteredTicket] = useState([]);
 
+   const columns = [
+      { header: 'Id', accessorKey: 'id' },
+      { header: 'Titulo', accessorKey: 'titulo' },
+      { header: 'Descripción', accessorKey: 'descripcion' },
+      { header: 'Estado', accessorKey: 'estado' },
+      { header: 'Tipo', accessorKey: 'tipo' },
+      { header: 'Prioridad', accessorKey: 'prioridad' },
+      { header: 'Fecha', accessorKey: 'fechaHora' },
+   ];
+
    const filterTicket = () => {
       const filtered = listadoTicket.filter((ticket) =>
-         ticket.titulo.includes(buscandoTermino)
+         ticket.titulo.toLowerCase().includes(buscandoTermino.toLowerCase())
       );
       setFilteredTicket(filtered);
    };
 
+   const data = listadoTicket;
+   const tabla = useReactTable({
+      data,
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+   });
+
    useEffect(() => {
+      console.log(listadoTicket.length);
       if (listadoTicket.length > 0) {
          setCargando(false);
       } else {
-         setCargando(true);
+         setCargando(false);
       }
    }, [listadoTicket]);
 
    const ticketDesplegados =
-      filteredTicket.length >= 0 ? filteredTicket : listadoTicket;
+      filteredTicket.length > 0 ? filteredTicket : listadoTicket;
 
    return (
       <>
@@ -46,7 +62,16 @@ const ListadoTickets = () => {
                className="bg-white dark:bg-slate-800 border-separate border border-slate-400 rounded-lg m-auto mt-32"
             >
                <thead>
-                  <tr>
+                  {tabla.getHeaderGroups().map((headerGroup) => (
+                     <tr key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                           <th key={header.id}>
+                              {header.column.columnDef.header}
+                           </th>
+                        ))}
+                     </tr>
+                  ))}
+                  {/* <tr>
                      <th
                         className="cursor-pointer px-10 border border-slate-300"
                         // onClick={listarOrdenado(0)}
@@ -89,10 +114,10 @@ const ListadoTickets = () => {
                      >
                         Fecha
                      </th>
-                  </tr>
+                  </tr> */}
                </thead>
                <tbody>
-                  {ticketDesplegados.map((ticket) => (
+                  {/* {ticketDesplegados.map((ticket) => (
                      <tr key={ticket.id}>
                         <td
                            data-title="id"
@@ -136,6 +161,18 @@ const ListadoTickets = () => {
                         >
                            {ticket.fechaHora}
                         </td>
+                     </tr>
+                  ))} */}
+                  {tabla.getRowModel().rows.map((row) => (
+                     <tr key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                           <td key={cell.id}>
+                              {flexRender(
+                                 cell.column.columnDef.cell,
+                                 cell.getContext()
+                              )}
+                           </td>
+                        ))}
                      </tr>
                   ))}
                </tbody>
