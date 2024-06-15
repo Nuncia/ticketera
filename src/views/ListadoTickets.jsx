@@ -29,6 +29,7 @@ const ListadoTickets = () => {
       const filtered = listadoTicket.filter((ticket) =>
          ticket.titulo.toLowerCase().includes(buscandoTermino.toLowerCase())
       );
+      console.log(filtered);
       setFilteredTicket(filtered);
    };
 
@@ -49,7 +50,7 @@ const ListadoTickets = () => {
    }, [listadoTicket]);
 
    const ticketDesplegados =
-      filteredTicket.length > 0 ? filteredTicket : listadoTicket;
+      filteredTicket.length >= 0 ? filteredTicket : listadoTicket;
 
    return (
       <>
@@ -59,10 +60,10 @@ const ListadoTickets = () => {
          ) : (
             <table
                id="tabla"
-               className="bg-white dark:bg-slate-800 border-separate border border-slate-400 rounded-lg m-auto mt-32"
+               className="bg-dark table-auto w-3/4 dark:bg-slate-800 border border-slate-400 rounded-lg m-auto mt-32"
             >
-               <thead>
-                  {tabla.getHeaderGroups().map((headerGroup) => (
+               <thead className="border-b-2 border-teal-500">
+                  {/* {tabla.getHeaderGroups().map((headerGroup) => (
                      <tr key={headerGroup.id}>
                         {headerGroup.headers.map((header) => (
                            <th key={header.id}>
@@ -70,10 +71,10 @@ const ListadoTickets = () => {
                            </th>
                         ))}
                      </tr>
-                  ))}
-                  {/* <tr>
+                  ))} */}
+                  <tr>
                      <th
-                        className="cursor-pointer px-10 border border-slate-300"
+                        className="border-b cursor-pointer px-10 border border-slate-300"
                         // onClick={listarOrdenado(0)}
                      >
                         Id
@@ -114,10 +115,10 @@ const ListadoTickets = () => {
                      >
                         Fecha
                      </th>
-                  </tr> */}
+                  </tr>
                </thead>
                <tbody>
-                  {/* {ticketDesplegados.map((ticket) => (
+                  {ticketDesplegados.map((ticket) => (
                      <tr key={ticket.id}>
                         <td
                            data-title="id"
@@ -162,11 +163,14 @@ const ListadoTickets = () => {
                            {ticket.fechaHora}
                         </td>
                      </tr>
-                  ))} */}
-                  {tabla.getRowModel().rows.map((row) => (
+                  ))}
+                  {/* {tabla.getRowModel().rows.map((row) => (
                      <tr key={row.id}>
                         {row.getVisibleCells().map((cell) => (
-                           <td key={cell.id}>
+                           <td
+                              key={cell.id}
+                              className="min-w-[150px] min-h-[100px] text-center"
+                           >
                               {flexRender(
                                  cell.column.columnDef.cell,
                                  cell.getContext()
@@ -174,7 +178,7 @@ const ListadoTickets = () => {
                            </td>
                         ))}
                      </tr>
-                  ))}
+                  ))} */}
                </tbody>
             </table>
          )}

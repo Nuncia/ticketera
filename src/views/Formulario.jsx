@@ -21,7 +21,7 @@ const Formulario = () => {
          titulo,
          descripcion,
          tipo,
-         fechaHora: fecha.toLocaleDateString(),
+         fechaHora: fecha.toLocaleString(),
          prioridad,
          estado: 'abierto',
       };
