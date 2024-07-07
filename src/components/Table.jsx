@@ -1,92 +1,88 @@
-import React from 'react';
+import { useMemo, useContext } from 'react';
+import {
+   MaterialReactTable,
+   createMRTColumnHelper,
+   useMaterialReactTable,
+} from 'material-react-table';
+import { Box, Button, Typography } from '@mui/material';
+import FileDownLoadIcon from '@mui/icons-material/FileDownload';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+import { TicketContext } from '../context/ticketContext';
 
 const Table = () => {
-   return (
-      <table
-         id="tabla"
-         className="bg-white dark:bg-slate-800 border-separate border border-slate-400 rounded-lg m-auto mt-32"
-      >
-         <thead>
-            <tr>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(0)}
-               >
-                  Id
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(1)}
-               >
-                  Título
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(2)}
-               >
-                  Descripción
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(3)}
-               >
-                  Tipo
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(4)}
-               >
-                  Prioridad
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(5)}
-               >
-                  Estado
-               </th>
-               <th
-                  className="cursor-pointer px-10 border border-slate-300"
-                  onClick={listarOrdenado(6)}
-               >
-                  Fecha
-               </th>
-            </tr>
-         </thead>
-         <tbody>
-            {listadoTicket.map((ticket) => (
-               <tr key={ticket.id}>
-                  <td
-                     data-title="id"
-                     className="text-center border border-slate-300"
-                  >
-                     {ticket.id}
-                  </td>
-                  <td
-                     data-title="titulo"
-                     className="text-center border border-slate-300"
-                  >
-                     {ticket.titulo}
-                  </td>
-                  <td data-titl className="text-center border border-slate-300">
-                     {ticket.descripcion}
-                  </td>
-                  <td className="text-center border border-slate-300">
-                     {ticket.tipo}
-                  </td>
-                  <td className="text-center border border-slate-300">
-                     {ticket.prioridad}
-                  </td>
-                  <td className="text-center border border-slate-300">
-                     {ticket.estado}
-                  </td>
-                  <td className="text-center border border-slate-300">
-                     {ticket.fechaHora}
-                  </td>
-               </tr>
-            ))}
-         </tbody>
-      </table>
+   const { listadoTicket } = useContext(TicketContext);
+   const data = listadoTicket;
+   const columns = useMemo(
+      () => [
+         { accessorKey: 'id', header: 'id', size: 150 },
+         { accessorKey: 'titulo', header: 'Título', size: 100 },
+         { accessorKey: 'descripcion', header: 'Descripción', size: 150 },
+         { accessorKey: 'tipo', header: 'Tipo', size: 50 },
+         { accessorKey: 'fechaHora', header: 'Fecha', size: 50 },
+         { accessorKey: 'prioridad', header: 'Prioridad', size: 20 },
+         { accessorKey: 'estado', header: 'Estado', size: 20 },
+      ],
+      []
    );
+
+   const handleExportRows = (rows) => {
+      const doc = new jsPDF();
+      const tableData = rows.map((row) => Object.values(row.original));
+      const tableHeaders = columns.map((c) => c.header);
+      doc.autoTable({
+         head: [tableHeaders],
+         body: tableData,
+         styles: { haling: 'center' },
+         columnStyles: {
+            0: { halign: 'center' },
+            1: { halign: 'center' },
+            2: { halign: 'center' },
+            3: { halign: 'center' },
+            4: { halign: 'center' },
+            5: { halign: 'center' },
+         },
+      });
+
+      doc.text('Listado de tickets', 20, 11);
+
+      doc.save('mrt-pdf-Tickets.pdf');
+   };
+
+   const table = useMaterialReactTable({
+      columns,
+      data,
+      enableEditing: true,
+      // onEditingRowSave,
+      enableRowSelection: true,
+      columnFilterDisplayMode: 'popover',
+      paginationDisplayMode: 'pages',
+      positionToolbarAlertBanner: 'bottom',
+      renderTopToolbarCustomActions: ({ table }) => (
+         <Box
+            sx={{
+               display: 'flex',
+               gap: '16px',
+               padding: '8px',
+               flexWrap: 'wrap',
+            }}
+         >
+            <Typography variant="h4">Listado de tickets</Typography>
+            <Button
+               disabled={table.getPaginationRowModel().rows.length === 0}
+               onClick={() =>
+                  handleExportRows(table.getPrePaginationRowModel().rows)
+               }
+               startIcon={<FileDownLoadIcon />}
+            >
+               Exportar a PDF
+            </Button>
+         </Box>
+      ),
+   });
+
+   return <MaterialReactTable table={table} />;
 };
 
 export default Table;

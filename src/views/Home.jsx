@@ -1,22 +1,44 @@
-import { useContext, useState } from 'react';
-import ListadoTickets from './ListadoTickets';
-import Buscador from '../components/Buscador';
+import { useState, useEffect } from 'react';
+import Buscador from '../components/Buscador.jsx';
+import ListadoTickets from '../components/ListadoTickets';
 
 const Home = () => {
-   // const filterTicket = () => {
-   //    const [filteredTicket, setFilteredTicket] = useState([]);
-   //    const { listadoTicket, buscandoTermino } = useContext(TicketContext);
+   const url = 'http://localhost:3001/tickets';
 
-   //    const filtered = listadoTicket.filter((ticket) =>
-   //       ticket.titulo.includes(buscandoTermino)
-   //    );
-   //    console.log(filtered);
-   //    setFilteredTicket(filtered);
-   // };
+   const [listadoTicket, setListadoTicket] = useState([]);
+   const [filteredTicket, setFilteredTicket] = useState([]);
+   const [cargando, setCargando] = useState(true);
 
+   const getData = async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data.rows);
+      setListadoTicket(data.rows);
+   };
+
+   const ticketDesplegados =
+      filteredTicket.length >= 0 ? filteredTicket : listadoTicket;
+
+   const filterTicket = (searchTearm) => {
+      if (typeof searchTearm == 'string') {
+         const filterd = listadoTicket.filter((ticket) =>
+            ticket.titulo.toLowerCase().includes(searchTearm.toLowerCase())
+         );
+      }
+      setFilteredTicket(filterd);
+   };
+
+   useEffect(() => {
+      getData();
+   }, []);
    return (
       <>
-         <ListadoTickets />
+         <Buscador onSearch={filterTicket} />
+         <ListadoTickets
+            listadoTicket={filteredTicket > 0 ? filteredTicket : listadoTicket}
+         />
+         {/* <Table /> */}
+         {/* <CRUD /> */}
       </>
    );
 };

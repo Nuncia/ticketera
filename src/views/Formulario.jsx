@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
 import { TicketContext } from '../context/ticketContext';
 import { v4 as uuidv4 } from 'uuid';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Formulario = () => {
    const { listadoTicket, actualizaListado, setListadoTicket } =
@@ -21,12 +23,17 @@ const Formulario = () => {
          titulo,
          descripcion,
          tipo,
-         fechaHora: fecha.toLocaleString(),
+         fechaHora: fecha.toLocaleDateString(),
          prioridad,
          estado: 'abierto',
       };
       actualizaListado(ticket);
       resetForm();
+      notificacion();
+   };
+
+   const notificacion = () => {
+      toast(`Ticket ingresado con éxito`);
    };
 
    const resetForm = () => {
@@ -42,11 +49,25 @@ const Formulario = () => {
    }, [listadoTicket]);
    return (
       <div>
+         <div>
+            {/* <button onClick={notificacion}>Notify!</button> */}
+            <ToastContainer
+               position="bottom-right"
+               autoClose={5000}
+               hideProgressBar={false}
+               newestOnTop={false}
+               closeOnClick
+               rtl={false}
+               pauseOnFocusLoss
+               draggable
+               pauseOnHover
+               theme="dark"
+               transition:Slides
+               onclick={notificacion}
+            />
+         </div>
          <p className="text-2xl text-center pt-10 pb-3">Agregar Ticket</p>
-         <form
-            onSubmit={handleSubmit}
-            style={{ display: 'flex', flexDirection: 'column' }}
-         >
+         <form onSubmit={handleSubmit} className="flex flex-col mx-2 px-5">
             <input
                className="form-control text-lg rounded-md block m-3 w-full p-2.5 border dark:bg-gray-700 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                type="text"
