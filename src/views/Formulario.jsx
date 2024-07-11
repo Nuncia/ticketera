@@ -19,13 +19,12 @@ const Formulario = () => {
 
       const fecha = new Date();
       const ticket = {
-         id: uuidv4(),
-         titulo,
-         descripcion,
-         tipo,
-         fechaHora: fecha.toLocaleDateString(),
-         prioridad,
-         estado: 'abierto',
+         titulo: titulo,
+         descripcion: descripcion,
+         idTipo: tipo,
+         // fechaHora: fecha.toLocaleDateString(),
+         idPrioridad: prioridad,
+         idEstado: 2,
       };
       actualizaListado(ticket);
       resetForm();
@@ -44,9 +43,9 @@ const Formulario = () => {
       setEstado('');
    };
 
-   useEffect(() => {
-      console.log(listadoTicket);
-   }, [listadoTicket]);
+   // useEffect(() => {
+   //    console.log(listadoTicket);
+   // }, [listadoTicket]);
    return (
       <div>
          <div>
@@ -92,8 +91,8 @@ const Formulario = () => {
                className="bg-gray-50 border m-3 text-lg border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
                <option>Selecciona un tipo</option>
-               <option value="tecnico">Técnico</option>
-               <option value="funcional">Funcional</option>
+               <option value={1}>Técnico</option>
+               <option value={2}>Funcional</option>
             </select>
             <select
                id="ticket-select"
@@ -103,9 +102,9 @@ const Formulario = () => {
                className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
                <option>Selecciona prioridad</option>
-               <option value="alta">Alta</option>
-               <option value="media">Media</option>
-               <option value="baja">Baja</option>
+               <option value={1}>Alta</option>
+               <option value={2}>Media</option>
+               <option value={3}>Baja</option>
             </select>
             <button
                className="btn color text-lg ml-7 m-3 pt-2 pb-2 text-white bg-teal-500 rounded-xl"

@@ -10,6 +10,7 @@ const Buscador = ({ onSearch }) => {
    const handleSearch = (e) => {
       e.preventDefault();
       onSearch(buscandoTermino);
+      setbuscandoTermino('');
    };
 
    return (

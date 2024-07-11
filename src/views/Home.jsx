@@ -19,23 +19,33 @@ const Home = () => {
    const ticketDesplegados =
       filteredTicket.length >= 0 ? filteredTicket : listadoTicket;
 
-   const filterTicket = (searchTearm) => {
-      if (typeof searchTearm == 'string') {
-         const filterd = listadoTicket.filter((ticket) =>
-            ticket.titulo.toLowerCase().includes(searchTearm.toLowerCase())
+   const filterTicket = (onSearch) => {
+      if (typeof onSearch.trim() == 'string') {
+         const filterd = listadoTicket.filter(
+            (ticket) =>
+               String(ticket.titulo).includes(onSearch.trim()) ||
+               String(ticket.id).includes(onSearch.trim()) ||
+               String(ticket.prioridad).includes(onSearch.trim()) ||
+               String(ticket.estado).includes(onSearch.trim()) ||
+               String(ticket.fecha).includes(onSearch.trim()) ||
+               String(ticket.tipo).includes(onSearch.trim())
          );
+         setFilteredTicket(filterd);
+      } else {
+         console.log('no hay datos');
       }
-      setFilteredTicket(filterd);
    };
 
    useEffect(() => {
       getData();
-   }, []);
+   }, [ticketDesplegados]);
    return (
       <>
          <Buscador onSearch={filterTicket} />
          <ListadoTickets
-            listadoTicket={filteredTicket > 0 ? filteredTicket : listadoTicket}
+            listadoTicket={
+               ticketDesplegados.length > 0 ? filteredTicket : listadoTicket
+            }
          />
          {/* <Table /> */}
          {/* <CRUD /> */}
