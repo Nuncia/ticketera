@@ -28,7 +28,8 @@ const Home = () => {
                String(ticket.prioridad).includes(onSearch.trim()) ||
                String(ticket.estado).includes(onSearch.trim()) ||
                String(ticket.fecha).includes(onSearch.trim()) ||
-               String(ticket.tipo).includes(onSearch.trim())
+               String(ticket.tipo).includes(onSearch.trim()) ||
+               String(ticket.descripcion).includes(onSearch.trim())
          );
          setFilteredTicket(filterd);
       } else {

@@ -22,7 +22,6 @@ const Formulario = () => {
          titulo: titulo,
          descripcion: descripcion,
          idTipo: tipo,
-         // fechaHora: fecha.toLocaleDateString(),
          idPrioridad: prioridad,
          idEstado: 2,
       };
@@ -43,13 +42,9 @@ const Formulario = () => {
       setEstado('');
    };
 
-   // useEffect(() => {
-   //    console.log(listadoTicket);
-   // }, [listadoTicket]);
    return (
       <div>
          <div>
-            {/* <button onClick={notificacion}>Notify!</button> */}
             <ToastContainer
                position="bottom-right"
                autoClose={5000}
@@ -114,7 +109,6 @@ const Formulario = () => {
                Agregar
             </button>
          </form>
-         {/* {mensaje && <p>{mensaje}</p>} */}
       </div>
    );
 };
