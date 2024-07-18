@@ -12,7 +12,7 @@ const Home = () => {
    const getData = async () => {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data.rows);
+      // console.log(data.rows);
       setListadoTicket(data.rows);
    };
 

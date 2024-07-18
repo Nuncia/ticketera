@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ListadoTickets = ({ listadoTicket }) => {
    const url = 'http://localhost:3001/tickets';
@@ -15,11 +15,14 @@ const ListadoTickets = ({ listadoTicket }) => {
       return estadoInicial;
    });
 
+   // Estado para la lista de tickets
+   const [tickets, setTickets] = useState(listadoTicket);
+
    // Función para modificar un ticket
    const modificarTicket = async (id) => {
       try {
          const ticketActualizado = ticketStates[id];
-         // console.log('modificarTicket: ', ticketActualizado.prioridad); // Estado actual de la prioridad
+         console.log(ticketActualizado);
          const respuesta = await fetch(url + '/' + id, {
             method: 'PUT',
             headers: {
@@ -33,18 +36,17 @@ const ListadoTickets = ({ listadoTicket }) => {
             return resultado;
          } else {
             console.error(
-               'Error al actualizar el ticket: ',
+               'Error al actualizar el ticket:',
                respuesta.statusText
             );
          }
       } catch (error) {
-         console.log('Error: ', error);
+         console.log('Error:', error);
       }
    };
 
    // Función para manejar los cambios en los select
    const handleSelectChange = (id, field, value) => {
-      // console.log('handleSelectChange: ', value);
       setTicketStates((prevStates) => ({
          ...prevStates,
          [id]: {
@@ -52,6 +54,55 @@ const ListadoTickets = ({ listadoTicket }) => {
             [field]: value,
          },
       }));
+   };
+
+   // Función para eliminar un ticket
+   const eliminarTicket = async (id) => {
+      try {
+         const respuesta = await fetch(url + '/' + id, {
+            method: 'DELETE',
+         });
+         if (respuesta.ok) {
+            // Filtra el ticket eliminado de la lista de tickets y el estado de los tickets
+            setTickets((prevTickets) =>
+               prevTickets.filter((ticket) => ticket.id !== id)
+            );
+            setTicketStates((prevStates) => {
+               const newStates = { ...prevStates };
+               delete newStates[id];
+               return newStates;
+            });
+            console.log('Ticket eliminado');
+         } else {
+            console.error('Error al eliminar el ticket:', respuesta.statusText);
+         }
+      } catch (error) {
+         console.log('Error:', error);
+      }
+   };
+
+   //Funcion que transforma el numero de prioridad en texto
+   const transformarPrioridad = (prioridad) => {
+      switch (prioridad) {
+         case 1:
+            return 'Alta';
+         case 2:
+            return 'Media';
+         default:
+            return 'Baja';
+      }
+   };
+
+   //Funcion que transforma el numero de estado en texto
+   const trandformarEstado = (estado) => {
+      switch (estado) {
+         case 1:
+            return 'Abierto';
+         case 2:
+            return 'Cerrado';
+         default:
+            return 'Pendiente';
+      }
    };
 
    // Efecto para inicializar el estado cuando cambia listadoTicket
@@ -63,8 +114,10 @@ const ListadoTickets = ({ listadoTicket }) => {
          };
          return acc;
       }, {});
+      console.log('estado inicial', estadoInicial);
       setTicketStates(estadoInicial);
-   }, []);
+      setTickets(listadoTicket); // Actualiza la lista de tickets también
+   }, [listadoTicket]);
 
    return (
       <table
@@ -97,7 +150,7 @@ const ListadoTickets = ({ listadoTicket }) => {
             </tr>
          </thead>
          <tbody>
-            {listadoTicket.map((ticket) => (
+            {tickets.map((ticket) => (
                <tr key={ticket.id}>
                   <td className="text-center border border-slate-300">
                      {ticket.id}
@@ -125,7 +178,9 @@ const ListadoTickets = ({ listadoTicket }) => {
                         }
                         className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      >
-                        <option>{ticket.prioridad}</option>
+                        <option>
+                           {transformarPrioridad(ticket.prioridad)}
+                        </option>
                         <option value="1">Alta</option>
                         <option value="2">Media</option>
                         <option value="3">Baja</option>
@@ -145,21 +200,29 @@ const ListadoTickets = ({ listadoTicket }) => {
                         }
                         className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                      >
-                        <option>{ticket.estado}</option>
+                        <option>{trandformarEstado(ticket.estado)}</option>
                         <option value="1">Abierto</option>
                         <option value="2">Cerrado</option>
-                        <option value="3">Pendiente</option>
+                        <option value="3">{'Pendiente'}</option>
                      </select>
                   </td>
                   <td className="text-center border border-slate-300">
                      {ticket.fecha}
                   </td>
-                  <td className="text-center border-r border-gray-50">
+                  <td className="text-center border-r border-gray-50 px-3">
                      <button
                         className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => modificarTicket(ticket.id)}
                      >
                         Modificar
+                     </button>
+                  </td>
+                  <td className="text-center border-r border-gray-50">
+                     <button
+                        className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => eliminarTicket(ticket.id)}
+                     >
+                        Eliminar
                      </button>
                   </td>
                </tr>
