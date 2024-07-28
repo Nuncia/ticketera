@@ -23,7 +23,7 @@ const Formulario = () => {
          descripcion: descripcion,
          idTipo: tipo,
          idPrioridad: prioridad,
-         idEstado: 2,
+         idEstado: 1,
       };
       actualizaListado(ticket);
       resetForm();

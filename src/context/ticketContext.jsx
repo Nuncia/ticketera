@@ -51,6 +51,7 @@ export const TicketProvider = ({ children }) => {
       <TicketContext.Provider
          value={{
             listadoTicket,
+            setListadoTicket,
             actualizaListado,
             buscandoTermino,
             setbuscandoTermino,
