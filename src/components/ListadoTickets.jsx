@@ -51,24 +51,18 @@ const ListadoTickets = ({ listadoTicket }) => {
 
             // Obtén los componentes de la fecha
             const date = new Date(fechaObj);
-            console.log(date.getDate());
-            console.log(date.getMonth() + 1);
-            console.log(date.getFullYear());
+
             const dia = String(date.getDate());
             const mes = String(date.getMonth() + 1);
             const anio = String(date.getFullYear());
 
             // Obtén los componentes de la hora
-            console.log(date.getHours());
-            console.log(date.getMinutes());
             const horas = String(date.getHours());
             const minutos = String(date.getMinutes());
             const segundos = String(date.getSeconds());
 
             // Formatea la fecha y hora como "dd/mm/yyyy hh:mm"
             const fechaFormateada = `${dia}/${mes}/${anio} ${horas}:${minutos}:${segundos}`;
-
-            console.log(fechaFormateada);
 
             const updateTickets = tickets.map((ticket) =>
                ticket.id === id
@@ -84,7 +78,6 @@ const ListadoTickets = ({ listadoTicket }) => {
             setTickets(updateTickets);
 
             // Actualiza el estado de los selects
-            console.log(ticketStates);
             const selectActualizados = ticketStates.map((ticket) =>
                ticket.id === ticketAct.id
                   ? {
