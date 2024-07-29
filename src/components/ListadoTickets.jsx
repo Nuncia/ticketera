@@ -166,9 +166,9 @@ const ListadoTickets = ({ listadoTicket }) => {
          <ToastContainer />
          <table
             id="tabla"
-            className="bg-dark table-auto w-3/4 dark:bg-slate-800 border border-slate-400 rounded-lg m-auto mt-32"
+            className="bg-dark table-auto w-3/4 dark:bg-slate-800 rounded-lg m-auto mt-32 mb-10"
          >
-            <thead className="border-b-2 border-teal-500">
+            <thead className=" border-white-500">
                <tr>
                   <th className="border-b cursor-pointer px-10 border border-slate-300">
                      Id
@@ -253,9 +253,9 @@ const ListadoTickets = ({ listadoTicket }) => {
                      <td className="text-center border border-slate-300">
                         {ticket.fecha}
                      </td>
-                     <td className="text-center border-r border-gray-50 px-3">
+                     <td className="text-center px-3">
                         <button
-                           className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                           className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
                            onClick={() => modificarTicket(ticket.id)}
                         >
                            Modificar
@@ -263,7 +263,7 @@ const ListadoTickets = ({ listadoTicket }) => {
                      </td>
                      <td className="text-center border-r border-gray-50">
                         <button
-                           className="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                           className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
                            onClick={() => eliminarTicket(ticket.id)}
                         >
                            Eliminar

@@ -3,6 +3,7 @@ import { TicketProvider } from './context/ticketContext';
 import Formulario from './views/Formulario';
 import Home from './views/Home';
 import NavBar from './components/NavBar';
+import Footer from './components/Fotter';
 
 function App() {
    return (
@@ -14,6 +15,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/formulario" element={<Formulario />} />
                </Routes>
+               <Footer />
             </BrowserRouter>
          </TicketProvider>
       </>
