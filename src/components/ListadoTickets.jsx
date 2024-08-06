@@ -162,118 +162,122 @@ const ListadoTickets = ({ listadoTicket }) => {
    };
 
    return (
-      <>
+      <div>
          <ToastContainer />
-         <table
-            id="tabla"
-            className="bg-dark table-auto w-3/4 dark:bg-slate-800 rounded-lg m-auto mt-32 mb-10"
-         >
-            <thead className=" border-white-500">
-               <tr>
-                  <th className="border-b cursor-pointer px-10 border border-slate-300">
-                     Id
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Título
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Descripción
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Tipo
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Prioridad
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Estado
-                  </th>
-                  <th className="cursor-pointer px-10 border border-slate-300">
-                     Fecha creación
-                  </th>
-               </tr>
-            </thead>
-            <tbody>
-               {tickets?.map((ticket) => (
-                  <tr key={ticket.id}>
-                     <td className="text-center border border-slate-300">
-                        {ticket.id}
-                     </td>
-                     <td className="text-center border border-slate-300">
-                        {ticket.titulo}
-                     </td>
-                     <td className="text-center border border-slate-300">
-                        {ticket.descripcion}
-                     </td>
-                     <td className="text-center border border-slate-300">
-                        {ticket.tipo}
-                     </td>
-                     <td className="text-center border border-slate-300 w-48">
-                        <select
-                           id={`prioridad-${ticket.id}`}
-                           name="prioridad"
-                           value={ticketStates[ticket.id]?.prioridad}
-                           onChange={(e) =>
-                              handleSelectChange(
-                                 ticket.id,
-                                 'prioridad',
-                                 e.target.value
-                              )
-                           }
-                           className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        >
-                           <option>
-                              {transformarPrioridad(ticket.prioridad)}
-                           </option>
-                           <option value={1}>Alta</option>
-                           <option value={2}>Media</option>
-                           <option value={3}>Baja</option>
-                        </select>
-                     </td>
-                     <td className="text-center border border-slate-300">
-                        <select
-                           id={`estado-${ticket.id}`}
-                           name="estado"
-                           value={ticketStates[ticket.id].estado || ''}
-                           onChange={(e) =>
-                              handleSelectChange(
-                                 ticket.id,
-                                 'estado',
-                                 e.target.value
-                              )
-                           }
-                           className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        >
-                           <option>{transformarEstado(ticket.estado)}</option>
-                           <option value={1}>Abierto</option>
-                           <option value={2}>Cerrado</option>
-                           <option value={3}>Pendiente</option>
-                        </select>
-                     </td>
-                     <td className="text-center border border-slate-300">
-                        {ticket.fecha}
-                     </td>
-                     <td className="text-center px-3">
-                        <button
-                           className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
-                           onClick={() => modificarTicket(ticket.id)}
-                        >
-                           Modificar
-                        </button>
-                     </td>
-                     <td className="text-center border-r border-gray-50">
-                        <button
-                           className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
-                           onClick={() => eliminarTicket(ticket.id)}
-                        >
-                           Eliminar
-                        </button>
-                     </td>
+         <main className="main">
+            <table
+               id="tabla"
+               className="bg-dark table-auto dark:bg-slate-800 rounded-lg mb-5 tabla sm:table-auto"
+            >
+               <thead className=" border-white-500">
+                  <tr>
+                     <th className="border-b cursor-pointer px-10 border border-slate-300">
+                        Id
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Título
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Descripción
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Tipo
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Prioridad
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Estado
+                     </th>
+                     <th className="cursor-pointer px-10 border border-slate-300">
+                        Fecha creación
+                     </th>
                   </tr>
-               ))}
-            </tbody>
-         </table>
-      </>
+               </thead>
+               <tbody>
+                  {tickets?.map((ticket) => (
+                     <tr key={ticket.id}>
+                        <td className="text-center border border-slate-300">
+                           {ticket.id}
+                        </td>
+                        <td className="text-center border border-slate-300">
+                           {ticket.titulo}
+                        </td>
+                        <td className="text-center border border-slate-300">
+                           {ticket.descripcion}
+                        </td>
+                        <td className="text-center border border-slate-300">
+                           {ticket.tipo}
+                        </td>
+                        <td className="text-center border border-slate-300 w-48">
+                           <select
+                              id={`prioridad-${ticket.id}`}
+                              name="prioridad"
+                              value={ticketStates[ticket.id]?.prioridad}
+                              onChange={(e) =>
+                                 handleSelectChange(
+                                    ticket.id,
+                                    'prioridad',
+                                    e.target.value
+                                 )
+                              }
+                              className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           >
+                              <option>
+                                 {transformarPrioridad(ticket.prioridad)}
+                              </option>
+                              <option value={1}>Alta</option>
+                              <option value={2}>Media</option>
+                              <option value={3}>Baja</option>
+                           </select>
+                        </td>
+                        <td className="text-center border border-slate-300">
+                           <select
+                              id={`estado-${ticket.id}`}
+                              name="estado"
+                              value={ticketStates[ticket.id].estado || ''}
+                              onChange={(e) =>
+                                 handleSelectChange(
+                                    ticket.id,
+                                    'estado',
+                                    e.target.value
+                                 )
+                              }
+                              className="bg-gray-50 border m-3 border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           >
+                              <option>
+                                 {transformarEstado(ticket.estado)}
+                              </option>
+                              <option value={1}>Abierto</option>
+                              <option value={2}>Cerrado</option>
+                              <option value={3}>Pendiente</option>
+                           </select>
+                        </td>
+                        <td className="text-center border border-slate-300">
+                           {ticket.fecha}
+                        </td>
+                        <td className="text-center px-3">
+                           <button
+                              className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
+                              onClick={() => modificarTicket(ticket.id)}
+                           >
+                              Modificar
+                           </button>
+                        </td>
+                        <td className="text-center border-r border-gray-50">
+                           <button
+                              className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
+                              onClick={() => eliminarTicket(ticket.id)}
+                           >
+                              Eliminar
+                           </button>
+                        </td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
+         </main>
+      </div>
    );
 };
 

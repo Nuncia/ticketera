@@ -10,12 +10,16 @@ function App() {
       <>
          <TicketProvider>
             <BrowserRouter>
-               <NavBar />
-               <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/formulario" element={<Formulario />} />
-               </Routes>
-               <Footer />
+               <div className="grid__contenedor">
+                  <NavBar />
+                  <div className="container">
+                     <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/formulario" element={<Formulario />} />
+                     </Routes>
+                  </div>
+                  <Footer />
+               </div>
             </BrowserRouter>
          </TicketProvider>
       </>
