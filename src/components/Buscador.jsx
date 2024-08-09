@@ -24,6 +24,7 @@ const Buscador = ({ onSearch }) => {
                value={buscandoTermino}
                onChange={(e) => setbuscandoTermino(e.target.value)}
                placeholder="Buscar ticket..."
+               style={{ fontSize: '8px' }}
             />
             <button className="bg-teal-500 hover:bg-teal-700 text-black py-2 px-4 rounded">
                Buscar

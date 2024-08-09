@@ -167,7 +167,7 @@ const ListadoTickets = ({ listadoTicket }) => {
          <main className="main">
             <table
                id="tabla"
-               className="bg-dark table-auto dark:bg-slate-800 rounded-lg mb-5 tabla sm:table-auto"
+               className="bg-dark table-auto dark:bg-slate-800 rounded-lg mb-5 tabla sm:table-auto xs:table-auto lg:table-auto"
             >
                <thead className=" border-white-500">
                   <tr>
@@ -258,7 +258,7 @@ const ListadoTickets = ({ listadoTicket }) => {
                         </td>
                         <td className="text-center px-3">
                            <button
-                              className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4 rounded"
+                              className="bg-cyan-600 hover:bg-blue-700 rounded-lg text-white font-bold py-2 px-4"
                               onClick={() => modificarTicket(ticket.id)}
                            >
                               Modificar

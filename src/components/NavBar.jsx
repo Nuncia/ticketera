@@ -30,7 +30,7 @@ const NavBar = () => {
                </svg>
             </button>
          </div> */}
-         <div
+         {/* <div
             id="menu"
             className="w-full  flex-grow lg:flex lg:items-center lg:w-auto hidden"
          >
@@ -42,7 +42,7 @@ const NavBar = () => {
                   Formulario
                </NavLink>
             </div>
-         </div>
+         </div> */}
       </nav>
    );
 };

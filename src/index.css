@@ -1,7 +1,7 @@
 *{
-  /* box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0%;
-  padding: 0%; */
+  padding: 0%;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -16,26 +16,35 @@ footer{
   /* grid-area: footer; */
   color: #ffff;
   height: 5vh;
-  width: 100vh;
-  text-align: center;
+  width: 100%;
   background-color: teal;
   /* margin: 0%; */
 }
 
-main{
+#tabla{
   font-size: 4px;
-  overflow-x: scroll;
-  overflow-y: scroll;
-  scrollbar-color: teal lightteal;
-  scrollbar-width:auto;
-  scrollbar-width: thin;
+  margin: auto;
+  /* scrollbar-color: teal lightteal; */
+  /* scrollbar-width:auto;
+  scrollbar-width: thin; */
 }
 
-@media (min-width: 768px) {
-  .container {
-      max-width: 768px;
-      overflow-x: scroll;
+
+
+@media screen and (min-width: 992px) {
+  .navbar{
+    width: 100%;
   }
+
+  footer{
+    width: 100%;
+  }
+
+  main{
+    overflow-x: scroll;
+    overflow-y: scroll;
+  }
+  
 }
 
 

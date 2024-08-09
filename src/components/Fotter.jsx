@@ -2,7 +2,7 @@ import React from 'react';
 
 const Fotter = () => {
    return (
-      <footer>
+      <footer className="text-center">
          <p>@By Mónica Ayala</p>
       </footer>
    );
