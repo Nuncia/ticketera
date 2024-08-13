@@ -6,13 +6,13 @@ const NavBar = () => {
    return (
       <nav className=" navbar">
          <div className="flex items-center flex-shrink-0 text-white mr-6">
-            <span className="font-semibold text-xl tracking-tight">
+            <span className="font-semibold tracking-tight">
                <NavLink to="/">Plataforma Soporte</NavLink>
             </span>
             <div className="text-sm lg:flex-grow">
                <NavLink
                   to="/formulario"
-                  className="block mt-0 lg:inline-block lg:mt-0 text-blue-200 hover:text-white ml-4 mr-10"
+                  className="block mt-0 lg:inline-block lg:mt-0 text-blue-200 hover:text-white ml-4 mr-10 text"
                >
                   Formulario
                </NavLink>

@@ -167,7 +167,7 @@ const ListadoTickets = ({ listadoTicket }) => {
          <main className="main">
             <table
                id="tabla"
-               className="bg-dark table-auto dark:bg-slate-800 rounded-lg mb-5 tabla sm:table-auto xs:table-auto lg:table-auto"
+               className="bg-dark dark:bg-slate-800 rounded-lg mb-5 tabla "
             >
                <thead className=" border-white-500">
                   <tr>

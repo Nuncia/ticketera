@@ -1,48 +1,53 @@
 *{
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   margin: 0%;
   padding: 0%;
   font-family: 'Roboto', sans-serif;
 }
 
-.navbar{
-  /* grid-area: navbar; */
-  width: 100vh;
-  background-color: teal;
-  color: #ffff;
-}
-
-footer{
-  /* grid-area: footer; */
-  color: #ffff;
-  height: 5vh;
-  width: 100%;
-  background-color: teal;
-  /* margin: 0%; */
-}
-
 #tabla{
   font-size: 4px;
   margin: auto;
-  /* scrollbar-color: teal lightteal; */
-  /* scrollbar-width:auto;
-  scrollbar-width: thin; */
 }
 
+footer{
+  background-color: teal;
+  color: white;
+  /* width: 100%; */
+}
 
+nav{
+  background-color: teal;
+}
 
-@media screen and (min-width: 992px) {
+@media screen and (max-width: 576px) {
+  .navbar{
+    width: 100%;
+    /* max-width: 576px; */
+  }
+
+  .main{
+    overflow-x: scroll;
+  }
+  
+}
+
+@media screen and (max-width: 786px) {
   .navbar{
     width: 100%;
   }
 
-  footer{
-    width: 100%;
+  .main{
+    overflow-x: scroll;
   }
+  
+}
+
+@media screen and (min-width: 992px) {
+ 
 
   main{
     overflow-x: scroll;
-    overflow-y: scroll;
   }
   
 }
