@@ -28,8 +28,7 @@ nav{
 
   .main{
     overflow-x: scroll;
-  }
-  
+  } 
 }
 
 @media screen and (max-width: 786px) {
@@ -39,17 +38,17 @@ nav{
 
   .main{
     overflow-x: scroll;
-  }
-  
+  } 
 }
 
 @media screen and (min-width: 992px) {
- 
-
   main{
     overflow-x: scroll;
-  }
+  } 
   
+  #tabla{
+    font-size: medium;
+  }
 }
 
 
